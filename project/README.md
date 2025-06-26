@@ -87,7 +87,7 @@ This will install dependencies for both the frontend and backend.
   ```env
   MONGODB_URI=mongodb://localhost:27017/trinwo_inventory
   JWT_SECRET=your_jwt_secret
-  JWT_EXPIRE=1d
+  JWT_EXPIRE=30d
   ```
 
 ### 4. Start the development servers
@@ -109,7 +109,7 @@ npm run dev:all
 - vite
 
 ## Backend Dependencies
-- express
+- express 
 - mongoose
 - cors
 - dotenv
