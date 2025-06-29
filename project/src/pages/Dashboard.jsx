@@ -46,6 +46,24 @@ const Dashboard = () => {
     loadDashboardData();
   }, []);
 
+  // Add polling to keep data in sync with database changes
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        await fetchDashboardStats();
+        const lowStock = await fetchLowStockProducts();
+        const activities = await fetchRecentActivities();
+        
+        setLowStockProducts(lowStock || []);
+        setRecentActivities(activities || []);
+      } catch (error) {
+        console.error('Error refreshing dashboard data:', error);
+      }
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, [fetchDashboardStats, fetchLowStockProducts, fetchRecentActivities]);
+
   const stats = [
     {
       name: 'Total Products',

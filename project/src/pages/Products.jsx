@@ -37,9 +37,9 @@ const Products = () => {
     sku: '',
     description: '',
     category: '',
-    quantity: 0,
-    lowStockThreshold: 10,
-    unitPrice: 0,
+    quantity: '',
+    lowStockThreshold: '',
+    unitPrice: '',
     location: '',
     barcode: ''
   });
@@ -48,6 +48,19 @@ const Products = () => {
     fetchProducts();
     fetchCategories();
   }, []);
+
+  // Add polling to keep data in sync with database changes
+  useEffect(() => {
+    // Don't poll when modal is open to avoid interfering with form input
+    if (showModal) return;
+
+    const interval = setInterval(() => {
+      fetchProducts();
+      fetchCategories();
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, [fetchProducts, fetchCategories, showModal]);
 
   const handleSearch = () => {
     const params = {};
@@ -111,9 +124,9 @@ const Products = () => {
       sku: '',
       description: '',
       category: '',
-      quantity: 0,
-      lowStockThreshold: 10,
-      unitPrice: 0,
+      quantity: '',
+      lowStockThreshold: '',
+      unitPrice: '',
       location: '',
       barcode: ''
     });
@@ -371,8 +384,8 @@ const Products = () => {
                       min="0"
                       required
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 bg-gray-100 text-black"
-                      value={formData.quantity === 0 ? '' : formData.quantity}
-                      onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) || 0 })}
+                      value={formData.quantity}
+                      onChange={(e) => setFormData({ ...formData, quantity: e.target.value === '' ? '' : parseInt(e.target.value) || 0 })}
                     />
                   </div>
                   <div>
@@ -384,8 +397,8 @@ const Products = () => {
                       min="1"
                       required
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 bg-gray-100 text-black"
-                      value={formData.lowStockThreshold === 10 ? '' : formData.lowStockThreshold}
-                      onChange={(e) => setFormData({ ...formData, lowStockThreshold: parseInt(e.target.value) || 1 })}
+                      value={formData.lowStockThreshold}
+                      onChange={(e) => setFormData({ ...formData, lowStockThreshold: e.target.value === '' ? '' : parseInt(e.target.value) || 1 })}
                     />
                   </div>
                   <div>
@@ -398,8 +411,8 @@ const Products = () => {
                       min="0"
                       required
                       className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition duration-200 bg-gray-100 text-black"
-                      value={formData.unitPrice === 0 ? '' : formData.unitPrice}
-                      onChange={(e) => setFormData({ ...formData, unitPrice: parseFloat(e.target.value) || 0 })}
+                      value={formData.unitPrice}
+                      onChange={(e) => setFormData({ ...formData, unitPrice: e.target.value === '' ? '' : parseFloat(e.target.value) || 0 })}
                     />
                   </div>
                 </div>

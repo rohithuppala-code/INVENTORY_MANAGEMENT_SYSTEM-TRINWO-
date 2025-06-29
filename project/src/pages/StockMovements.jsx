@@ -34,6 +34,16 @@ const StockMovements = () => {
     fetchStockMovements();
   }, []);
 
+  // Add polling to keep data in sync with database changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchProducts();
+      fetchStockMovements();
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, [fetchProducts, fetchStockMovements]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -58,6 +68,11 @@ const StockMovements = () => {
   };
 
   const openCreateModal = () => {
+    const validProducts = products.filter(product => product && product.name);
+    if (validProducts.length === 0) {
+      alert('No products available for stock adjustment. Please add products first.');
+      return;
+    }
     resetForm();
     setShowModal(true);
   };
@@ -225,9 +240,9 @@ const StockMovements = () => {
                     onChange={(e) => setFormData({ ...formData, productId: e.target.value })}
                   >
                     <option value="">Select Product</option>
-                    {products.map((product) => (
+                    {products.filter(product => product && product.name).map((product) => (
                       <option key={product._id} value={product._id}>
-                        {product.name} (Current: {product.quantity})
+                        {product.name} (Current: {product.quantity || 0})
                       </option>
                     ))}
                   </select>
@@ -261,7 +276,7 @@ const StockMovements = () => {
                       let val = e.target.value;
                       // Remove leading zeros
                       val = val.replace(/^0+(?=\d)/, '');
-                      setFormData({ ...formData, quantity: val === '' ? 0 : parseInt(val) });
+                      setFormData({ ...formData, quantity: val === '' ? 0 : parseInt(val) || 0 });
                     }}
                   />
                   {formData.type === 'adjustment' && (

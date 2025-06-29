@@ -31,6 +31,15 @@ const Categories = () => {
     fetchCategories();
   }, []);
 
+  // Add polling to keep data in sync with database changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchCategories();
+    }, 10000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, [fetchCategories]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
