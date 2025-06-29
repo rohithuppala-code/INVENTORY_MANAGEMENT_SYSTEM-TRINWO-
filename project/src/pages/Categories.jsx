@@ -15,6 +15,8 @@ const Categories = () => {
     categories, 
     fetchCategories, 
     createCategory,
+    updateCategory,
+    deleteCategory,
     loading 
   } = useInventory();
 
@@ -32,14 +34,24 @@ const Categories = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const result = await createCategory(formData);
-
-    if (result.success) {
-      setShowModal(false);
-      setEditingCategory(null);
-      resetForm();
+    if (editingCategory) {
+      const result = await updateCategory(editingCategory._id, formData);
+      if (result.success) {
+        setShowModal(false);
+        setEditingCategory(null);
+        resetForm();
+      } else {
+        alert(result.message);
+      }
     } else {
-      alert(result.message);
+      const result = await createCategory(formData);
+      if (result.success) {
+        setShowModal(false);
+        setEditingCategory(null);
+        resetForm();
+      } else {
+        alert(result.message);
+      }
     }
   };
 
@@ -54,6 +66,25 @@ const Categories = () => {
     resetForm();
     setEditingCategory(null);
     setShowModal(true);
+  };
+
+  const openEditModal = (category) => {
+    setFormData({
+      name: category.name,
+      description: category.description || ''
+    });
+    setEditingCategory(category);
+    setShowModal(true);
+  };
+
+  const handleDelete = async (categoryId) => {
+    if (window.confirm('⚠️ WARNING: Are you sure you want to delete this category? This will also delete ALL products associated with this category. This action cannot be undone.')) {
+      const result = await deleteCategory(categoryId);
+      
+      if (!result.success) {
+        alert(result.message);
+      }
+    }
   };
 
   return (
@@ -104,10 +135,16 @@ const Categories = () => {
                 </div>
                 {user?.role === 'admin' && (
                   <div className="flex items-center space-x-2">
-                    <button className="bg-gray-100 hover:bg-gray-200 rounded-lg p-2 text-blue-600 hover:text-blue-800 transition duration-200">
+                    <button 
+                      onClick={() => openEditModal(category)}
+                      className="bg-gray-100 hover:bg-gray-200 rounded-lg p-2 text-blue-600 hover:text-blue-800 transition duration-200"
+                    >
                       <Edit className="h-4 w-4" />
                     </button>
-                    <button className="bg-gray-100 hover:bg-gray-200 rounded-lg p-2 text-red-600 hover:text-red-800 transition duration-200">
+                    <button 
+                      onClick={() => handleDelete(category._id)}
+                      className="bg-gray-100 hover:bg-gray-200 rounded-lg p-2 text-red-600 hover:text-red-800 transition duration-200"
+                    >
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </div>

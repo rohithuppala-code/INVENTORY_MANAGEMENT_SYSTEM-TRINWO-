@@ -1,5 +1,6 @@
 import express from 'express';
 import Category from '../models/Category.js';
+import Product from '../models/Product.js';
 import { protect, admin, adminOrStaff } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -51,21 +52,26 @@ router.put('/:id', protect, admin, async (req, res) => {
 });
 
 // @route   DELETE /api/categories/:id
-// @desc    Delete category
+// @desc    Delete category and all associated products
 // @access  Private (Admin only)
 router.delete('/:id', protect, admin, async (req, res) => {
   try {
-    const category = await Category.findByIdAndUpdate(
-      req.params.id,
-      { isActive: false },
-      { new: true }
-    );
+    const categoryId = req.params.id;
+    
+    // First, delete all products associated with this category
+    const deleteProductsResult = await Product.deleteMany({ category: categoryId });
+    
+    // Then, delete the category
+    const category = await Category.findByIdAndDelete(categoryId);
 
     if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
 
-    res.json({ message: 'Category deleted successfully' });
+    res.json({ 
+      message: 'Category and associated products deleted successfully',
+      deletedProducts: deleteProductsResult.deletedCount
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

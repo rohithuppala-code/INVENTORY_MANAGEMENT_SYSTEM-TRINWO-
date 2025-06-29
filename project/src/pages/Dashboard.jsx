@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useInventory } from '../context/InventoryContext';
+import { useNavigate } from 'react-router-dom';
 import { 
   Package, 
   Users, 
@@ -23,6 +24,8 @@ const Dashboard = () => {
   const [lowStockProducts, setLowStockProducts] = useState([]);
   const [recentActivities, setRecentActivities] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadDashboardData = async () => {
@@ -212,7 +215,7 @@ const Dashboard = () => {
                 </div>
               ) : (
                 <div className="space-y-2">
-                  {recentActivities.slice(0, 5).map((activity) => (
+                  {recentActivities.filter(activity => activity.product && activity.product.name).slice(0, 5).map((activity) => (
                     <div key={activity._id} className="flex items-center space-x-2 p-2 bg-gray-50 rounded-md">
                       <div className="flex-shrink-0">
                         {getMovementIcon(activity.type)}
@@ -237,7 +240,10 @@ const Dashboard = () => {
                   ))}
                   {recentActivities.length > 5 && (
                     <div className="text-center pt-2">
-                      <button className="text-blue-600 hover:text-blue-700 text-xs font-medium flex items-center justify-center space-x-1">
+                      <button 
+                        onClick={() => navigate('/stock-movements')}
+                        className="bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium flex items-center justify-center space-x-1 px-3 py-1 rounded transition-colors"
+                      >
                         <Eye className="h-3 w-3" />
                         <span>View all activities</span>
                       </button>

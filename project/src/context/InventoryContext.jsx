@@ -113,6 +113,26 @@ export const InventoryProvider = ({ children }) => {
     }
   };
 
+  const updateCategory = async (id, categoryData) => {
+    try {
+      const res = await axios.put(`${API_BASE}/categories/${id}`, categoryData);
+      await fetchCategories(); // Refresh list
+      return { success: true, data: res.data };
+    } catch (error) {
+      return { success: false, message: error.response?.data?.message };
+    }
+  };
+
+  const deleteCategory = async (id) => {
+    try {
+      await axios.delete(`${API_BASE}/categories/${id}`);
+      await fetchCategories(); // Refresh list
+      return { success: true };
+    } catch (error) {
+      return { success: false, message: error.response?.data?.message };
+    }
+  };
+
   // Stock Movements
   const fetchStockMovements = async (params = {}) => {
     try {
@@ -175,6 +195,8 @@ export const InventoryProvider = ({ children }) => {
         deleteProduct,
         fetchCategories,
         createCategory,
+        updateCategory,
+        deleteCategory,
         fetchStockMovements,
         adjustStock,
         fetchDashboardStats,

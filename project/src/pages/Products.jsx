@@ -457,9 +457,9 @@ const Products = () => {
                 <h2 className="text-2xl font-semibold">Product Details</h2>
                 <button
                   onClick={() => setViewingProduct(null)}
-                  className="text-gray-400 hover:text-gray-600 transition duration-200"
+                  className="bg-gray-100 rounded-lg p-2 text-gray-400 hover:bg-red-100 transition duration-200"
                 >
-                  <X className="h-6 w-6 text-red-600 hover:bg-red-100" />
+                  <X className="h-6 w-6 text-red-600" />
                 </button>
               </div>
 
