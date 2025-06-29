@@ -49,7 +49,7 @@ const Products = () => {
     fetchCategories();
   }, []);
 
-  // Add polling to keep data in sync with database changes
+  // Add polling to keep data in sync when chnages done in db
   useEffect(() => {
     // Don't poll when modal is open to avoid interfering with form input
     if (showModal) return;

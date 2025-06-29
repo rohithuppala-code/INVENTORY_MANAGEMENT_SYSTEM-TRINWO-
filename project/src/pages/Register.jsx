@@ -50,7 +50,7 @@ const Register = () => {
         password,
         role
       });
-
+// navigate to login
       if (result.success) {
         setSuccess('Registration successful! Redirecting to login...');
         setTimeout(() => {

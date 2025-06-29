@@ -85,7 +85,7 @@ const Categories = () => {
     setEditingCategory(category);
     setShowModal(true);
   };
-
+// TO DELETE WHOLE CATEGORY
   const handleDelete = async (categoryId) => {
     if (window.confirm('⚠️ WARNING: Are you sure you want to delete this category? This will also delete ALL products associated with this category. This action cannot be undone.')) {
       const result = await deleteCategory(categoryId);

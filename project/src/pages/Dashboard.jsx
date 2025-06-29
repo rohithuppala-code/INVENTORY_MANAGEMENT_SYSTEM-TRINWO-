@@ -59,7 +59,7 @@ const Dashboard = () => {
       } catch (error) {
         console.error('Error refreshing dashboard data:', error);
       }
-    }, 10000); // 10 seconds
+    }, 10000); // 10 seconds to get from db
 
     return () => clearInterval(interval);
   }, [fetchDashboardStats, fetchLowStockProducts, fetchRecentActivities]);

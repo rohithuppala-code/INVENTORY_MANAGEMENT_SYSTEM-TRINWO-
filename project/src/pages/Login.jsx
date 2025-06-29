@@ -140,7 +140,7 @@ const Login = () => {
               </div>
             </form>
 
-            {/* Register Link */}
+            {/* Register Link below */}
             <div className="text-center mt-4">
               <p className="text-gray-600">
                 Don't have an account?{' '}
