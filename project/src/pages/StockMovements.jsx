@@ -259,7 +259,6 @@ const StockMovements = () => {
                   >
                     <option value="stock_in">Stock In</option>
                     <option value="stock_out">Stock Out</option>
-                    <option value="adjustment">Manual Adjustment</option>
                   </select>
                 </div>
                 <div>
