@@ -1,6 +1,6 @@
 
 # TRINWO SOLUTIONS Inventory Management System
-A modern inventory management system with a React frontend and Node.js/Express backend.
+A modern inventory management system with a React frontend(UI) and Node.js/Express backend.
 
 Folder Structure
 ```
