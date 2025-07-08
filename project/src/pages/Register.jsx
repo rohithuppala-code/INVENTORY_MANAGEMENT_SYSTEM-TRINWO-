@@ -74,7 +74,7 @@ const Register = () => {
     <div className="fixed inset-0 min-h-screen w-full flex items-center justify-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       <div className="relative z-10 flex items-center justify-center w-full min-h-screen">
-        <div className="w-[400px] max-h-[90vh] overflow-y-auto p-8 bg-gray-300/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn flex flex-col items-center justify-center">
+        <div className="w-full max-w-md max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-gray-300/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn flex flex-col items-center justify-center">
           <div className="w-full flex flex-col items-center justify-center p-8 bg-gray-300/90 rounded-xl">
             <div className="text-center mt-10 mb-2">
               <div className="mx-auto h-16 w-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-1">
@@ -106,11 +106,12 @@ const Register = () => {
                   id="name"
                   name="name"
                   type="text"
+                  autoComplete="name"
                   required
-                  value={name}
-                  onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 bg-gray-200 text-black text-base"
-                  placeholder="Enter your full name"
+                  placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -122,11 +123,12 @@ const Register = () => {
                   id="email"
                   name="email"
                   type="email"
+                  autoComplete="email"
                   required
-                  value={email}
-                  onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 bg-gray-200 text-black text-base"
                   placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -139,11 +141,12 @@ const Register = () => {
                     id="password"
                     name="password"
                     type={showPassword ? 'text' : 'password'}
+                    autoComplete="new-password"
                     required
-                    value={password}
-                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 bg-gray-200 text-black text-base"
                     placeholder="Enter your password"
+                    value={formData.password}
+                    onChange={handleChange}
                   />
                   <button
                     type="button"
@@ -169,11 +172,12 @@ const Register = () => {
                     id="confirmPassword"
                     name="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
+                    autoComplete="new-password"
                     required
-                    value={confirmPassword}
-                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 bg-gray-200 text-black text-base"
                     placeholder="Confirm your password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                   />
                   <button
                     type="button"
@@ -224,7 +228,7 @@ const Register = () => {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="bg-gray-200 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-300 border border-gray-300 transition duration-200 text-base"
+                className="bg-gray-200 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-300 border border-gray-300 transition duration-200 text-base w-full mt-2"
               >
                 Cancel
               </button>

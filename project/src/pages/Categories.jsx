@@ -167,7 +167,7 @@ const Categories = () => {
       {/* Add Category Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md">
+          <div className="bg-white rounded-xl p-6 w-full max-w-lg mx-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-semibold">
                 {editingCategory ? 'Edit Category' : 'Add New Category'}

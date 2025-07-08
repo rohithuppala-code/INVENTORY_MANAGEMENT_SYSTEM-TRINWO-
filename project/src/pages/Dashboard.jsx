@@ -174,7 +174,7 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full mt-4">
           {/* Low Stock Products */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full overflow-x-auto">
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-gray-900">Low Stock Alert</h2>
@@ -218,12 +218,10 @@ const Dashboard = () => {
           </div>
 
           {/* Recent Activities */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full">
-            <div className="p-4 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Recent Activities</h2>
-                <Activity className="h-4 w-4 text-blue-500" />
-              </div>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full overflow-x-auto">
+            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-gray-900">Recent Activities</h2>
+              <Activity className="h-4 w-4 text-blue-500" />
             </div>
             <div className="p-4">
               {recentActivities.length === 0 ? (

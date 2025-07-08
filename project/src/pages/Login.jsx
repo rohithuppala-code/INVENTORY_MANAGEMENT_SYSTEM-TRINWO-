@@ -53,7 +53,7 @@ const Login = () => {
     <div className="fixed inset-0 min-h-screen w-full flex items-center justify-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       <div className="relative z-10 flex items-center justify-center w-full min-h-screen">
-        <div className="w-[400px] max-h-[90vh] overflow-y-auto p-8 bg-gray-200/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn">
+        <div className="w-full max-w-sm max-h-[90vh] overflow-y-auto p-6 bg-gray-200/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn">
           <div className="w-full h-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center mb-2">
               <div className="flex flex-col items-center">
@@ -86,7 +86,7 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none relative block w-[340px] mx-auto px-3 py-2 border border-gray-300 placeholder-gray-500 text-black bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm transition duration-200"
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-black bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm transition duration-200"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -103,7 +103,7 @@ const Login = () => {
                     type={showPassword ? 'text' : 'password'}
                     autoComplete="current-password"
                     required
-                    className="appearance-none relative block w-[340px] mx-auto px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-black bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm transition duration-200"
+                    className="appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-black bg-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm transition duration-200"
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleChange}
@@ -126,7 +126,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="group relative w-[340px] mx-auto flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                 >
                   {isLoading ? (
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
