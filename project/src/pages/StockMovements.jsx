@@ -154,7 +154,7 @@ const StockMovements = () => {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
             </div>
           ) : (
-            <div className="overflow-x-auto w-full">
+            <div className="overflow-x-auto w-full max-h-[60vh] overflow-y-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
