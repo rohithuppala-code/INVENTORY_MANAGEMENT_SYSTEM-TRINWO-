@@ -467,7 +467,7 @@ const Products = () => {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold">Product Details</h2>
+                <h2 className="text-3xl font-bold text-gray-900">Product Details</h2>
                 <button
                   onClick={() => setViewingProduct(null)}
                   className="bg-gray-100 rounded-lg p-2 text-gray-400 hover:bg-red-100 transition duration-200"
