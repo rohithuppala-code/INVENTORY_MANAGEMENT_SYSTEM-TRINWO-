@@ -10,7 +10,7 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'staff'
+    // Remove role from formData state
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -19,7 +19,8 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { name, email, password, confirmPassword, role } = formData;
+  // Remove role from destructuring
+  const { name, email, password, confirmPassword } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,11 +45,12 @@ const Register = () => {
     }
 
     try {
+      // Always set role to 'staff' (or 'user') when calling register
       const result = await register({
         name,
         email,
         password,
-        role
+        role: 'staff'
       });
 // navigate to login
       if (result.success) {
@@ -71,11 +73,11 @@ const Register = () => {
   };
 
   return (
-    <div className="fixed inset-0 min-h-screen w-full flex items-center justify-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+    <div className="min-h-screen w-screen flex items-center justify-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-      <div className="relative z-10 flex items-center justify-center w-full min-h-screen">
-        <div className="w-full max-w-md max-h-[90vh] overflow-y-auto p-6 sm:p-8 bg-gray-300/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn flex flex-col items-center justify-center">
-          <div className="w-full flex flex-col items-center justify-center p-8 bg-gray-300/90 rounded-xl">
+      <div className="relative z-10 w-full flex items-center justify-center">
+        <div className="w-[90vw] max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 mx-auto bg-gray-300/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn overflow-y-auto max-h-[90vh] overflow-x-hidden flex flex-col items-center justify-center">
+          <div className="w-full flex flex-col items-center justify-center p-2 sm:p-4 md:p-8 bg-gray-300/90 rounded-xl">
             <div className="text-center mt-10 mb-2">
               <div className="mx-auto h-16 w-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-1">
                 <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +99,7 @@ const Register = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 w-full">
               <div>
                 <label htmlFor="name" className="block text-base font-medium text-gray-700 mb-2">
                   Full Name
@@ -194,21 +196,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="role" className="block text-base font-medium text-gray-700 mb-2">
-                  Role
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={role}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 bg-gray-200 text-black text-base"
-                >
-                  <option value="staff">Staff (View Only)</option>
-                  <option value="admin">Admin (Full Access)</option>
-                </select>
-              </div>
+              {/* Removed role selection dropdown */}
 
               <button
                 type="submit"

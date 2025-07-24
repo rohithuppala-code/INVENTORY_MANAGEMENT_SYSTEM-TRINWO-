@@ -51,26 +51,26 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-lg border-b-2 border-purple-100 w-full">
-      <div className="px-0 w-full">
-        <div className="flex justify-between h-24">
+      <div className="px-2 sm:px-4 w-full">
+        <div className="flex justify-between items-center h-16 sm:h-20 md:h-24">
           {/* Logo and brand */}
-          <div className="flex items-center">
+          <div className="flex items-center min-w-0">
             <div className="flex-shrink-0 flex items-center">
-              <Package className="h-8 w-8 text-purple-600" />
-              <span className="ml-2 text-2xl font-bold text-gray-900">
+              <Package className="h-7 w-7 sm:h-8 sm:w-8 text-purple-600" />
+              <span className="ml-2 text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate max-w-[120px] sm:max-w-xs md:max-w-none">
                 TRINWO SOLUTIONS
               </span>
             </div>
 
             {/* Desktop navigation */}
-            <div className="hidden md:ml-8 md:flex md:space-x-8">
+            <div className="hidden md:ml-8 md:flex md:space-x-6 lg:space-x-8">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium transition-colors duration-200 ${
+                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-base lg:text-lg font-medium transition-colors duration-200 whitespace-nowrap ${
                       location.pathname === item.href
                         ? 'border-purple-500 text-gray-900'
                         : 'border-transparent text-gray-500 hover:border-purple-300 hover:text-gray-700'
@@ -86,18 +86,18 @@ const Navbar = () => {
 
           {/* User menu */}
           <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 lg:space-x-3">
+              <div className="flex items-center space-x-1 sm:space-x-2">
                 <User className="h-5 w-5 text-gray-500" />
-                <span className="text-lg text-gray-700">{user?.name}</span>
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-base font-medium ${getRoleColor(user?.role)}`}>
+                <span className="text-base lg:text-lg text-gray-700 truncate max-w-[80px] sm:max-w-xs md:max-w-none">{user?.name}</span>
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs sm:text-base font-medium ${getRoleColor(user?.role)}`}>
                   {user?.role === 'admin' && <Shield className="h-3 w-3 mr-1" />}
                   {user?.role}
                 </span>
               </div>
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-base leading-5 font-semibold rounded-md text-white bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-200"
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm lg:text-base leading-5 font-semibold rounded-md text-white bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-200"
               >
                 <LogOut className="h-5 w-5 mr-2" />
                 Logout
@@ -109,7 +109,8 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -123,8 +124,8 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <div className="pt-2 pb-3 space-y-1 bg-gray-50">
+        <div className="md:hidden w-full border-t border-gray-200 bg-gray-50">
+          <div className="pt-2 pb-3 space-y-1 px-2">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -132,10 +133,10 @@ const Navbar = () => {
                   key={item.name}
                   to={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors duration-200 ${
+                  className={`flex items-center pl-3 pr-4 py-2 rounded-lg border-l-4 text-base font-medium transition-colors duration-200 whitespace-nowrap ${
                     location.pathname === item.href
                       ? 'bg-purple-50 border-purple-500 text-purple-700'
-                      : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-purple-300 hover:text-gray-800'
+                      : 'border-transparent text-gray-600 hover:bg-gray-100 hover:border-purple-300 hover:text-gray-800'
                   }`}
                 >
                   <Icon className="h-5 w-5 mr-3" />
@@ -144,20 +145,20 @@ const Navbar = () => {
               );
             })}
           </div>
-          <div className="pt-4 pb-3 border-t border-gray-200 bg-gray-50">
-            <div className="flex items-center px-4">
+          <div className="pt-4 pb-3 border-t border-gray-200 px-2">
+            <div className="flex items-center px-2">
               <div className="flex-shrink-0">
                 <User className="h-8 w-8 text-gray-400" />
               </div>
-              <div className="ml-3">
-                <div className="text-base font-medium text-gray-800">{user?.name}</div>
+              <div className="ml-3 min-w-0">
+                <div className="text-base font-medium text-gray-800 truncate max-w-[100px]">{user?.name}</div>
                 <div className="text-sm text-gray-500 capitalize">{user?.role}</div>
               </div>
             </div>
             <div className="mt-3 space-y-1">
               <button
                 onClick={handleLogout}
-                className="flex items-center w-full px-4 py-2 text-base font-medium text-red-600 hover:bg-red-50 transition duration-200"
+                className="flex items-center w-full px-4 py-2 text-base font-medium text-red-600 hover:bg-red-50 transition duration-200 rounded-lg"
               >
                 <LogOut className="h-5 w-5 mr-3" />
                 Logout

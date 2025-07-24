@@ -138,33 +138,38 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="relative min-h-screen min-w-screen w-screen h-screen flex flex-col">
-      <div className="absolute inset-0 -z-10" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div className="relative flex flex-col min-h-screen w-screen">
+      <div className="absolute inset-0 -z-10">
+        <div
+          style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+          className="w-full h-full"
+        >
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        </div>
       </div>
-      <div className="flex-1 flex flex-col p-0 w-full h-full">
+      <div className="flex-1 flex flex-col py-2 w-full">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-xl p-6 text-white relative overflow-hidden w-full">
+        <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-xl p-4 sm:p-6 text-white relative overflow-hidden w-full mt-2">
           <div className="absolute inset-0 bg-inventory bg-cover bg-center opacity-20"></div>
           <div className="relative z-10 w-full">
-            <h1 className="text-4xl font-bold">Dashboard Overview</h1>
-            <p className="text-blue-100 mt-2">Monitor your inventory performance and key metrics</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Dashboard Overview</h1>
+            <p className="text-blue-100 mt-1 sm:mt-2 text-sm sm:text-base">Monitor your inventory performance and key metrics</p>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-4 w-full">
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.name} className={`${stat.bgColor} backdrop-blur-xl rounded-lg p-4 border border-white/10 animate-fadeIn card-hover w-full`}>
+              <div key={stat.name} className={`${stat.bgColor} backdrop-blur-xl rounded-lg p-3 sm:p-4 border border-white/10 animate-fadeIn card-hover w-full`}>
                 <div className="flex items-center">
                   <div className={`${stat.color} p-2 rounded-lg`}>
                     <Icon className="h-5 w-5 text-white" />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-base font-medium text-black">{stat.name}</p>
-                    <p className={`text-xl font-bold ${stat.textColor}`}>{stat.value}</p>
+                  <div className="ml-3 sm:ml-4">
+                    <p className="text-sm sm:text-base font-medium text-black">{stat.name}</p>
+                    <p className={`text-lg sm:text-xl font-bold ${stat.textColor}`}>{stat.value}</p>
                   </div>
                 </div>
               </div>
@@ -172,18 +177,18 @@ const Dashboard = () => {
           })}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 w-full mt-4">
           {/* Low Stock Products */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full overflow-x-auto">
-            <div className="p-4 border-b border-gray-200">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full">
+            <div className="p-3 sm:p-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Low Stock Alert</h2>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Low Stock Alert</h2>
                 <AlertTriangle className="h-4 w-4 text-red-500" />
               </div>
             </div>
-            <div className="p-4">
+            <div className="p-3 sm:p-4">
               {lowStockProducts.length === 0 ? (
-                <div className="text-center text-gray-500 py-6">
+                <div className="text-center text-gray-500 py-4 sm:py-6">
                   <Package className="h-8 w-8 text-gray-300 mx-auto mb-2" />
                   <p className="text-xs">No low stock items</p>
                 </div>
@@ -218,14 +223,14 @@ const Dashboard = () => {
           </div>
 
           {/* Recent Activities */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full overflow-x-auto">
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">Recent Activities</h2>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full">
+            <div className="p-3 sm:p-4 border-b border-gray-200 flex items-center justify-between">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Recent Activities</h2>
               <Activity className="h-4 w-4 text-blue-500" />
             </div>
-            <div className="p-4">
+            <div className="p-3 sm:p-4">
               {recentActivities.length === 0 ? (
-                <div className="text-center text-gray-500 py-6">
+                <div className="text-center text-gray-500 py-4 sm:py-6">
                   <Activity className="h-8 w-8 text-gray-300 mx-auto mb-2" />
                   <p className="text-xs">No recent activities</p>
                 </div>

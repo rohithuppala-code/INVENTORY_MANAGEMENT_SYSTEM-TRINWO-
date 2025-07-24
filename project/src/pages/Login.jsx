@@ -50,22 +50,22 @@ const Login = () => {
   }
 
   return (
-    <div className="fixed inset-0 min-h-screen w-full flex items-center justify-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+    <div className="min-h-screen w-screen flex items-center justify-center" style={{ backgroundImage: 'url(https://plus.unsplash.com/premium_photo-1681426710520-7c56c9f563d2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW52ZW50b3J5JTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-      <div className="relative z-10 flex items-center justify-center w-full min-h-screen">
-        <div className="w-full max-w-sm max-h-[90vh] overflow-y-auto p-6 bg-gray-200/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn">
+      <div className="relative z-10 w-full flex items-center justify-center">
+        <div className="w-[90vw] max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 md:p-8 mx-auto bg-gray-200/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 animate-fadeIn overflow-y-auto max-h-[90vh]">
           <div className="w-full h-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center mb-2">
               <div className="flex flex-col items-center">
-                <Package className="h-14 w-14 text-purple-600 mb-1" />
-                <span className="text-4xl font-bold text-gray-900 leading-tight tracking-tight">TRINWO</span>
-                <span className="text-4xl font-bold text-gray-900 leading-tight tracking-tight">SOLUTIONS</span>
+                <Package className="h-12 w-12 sm:h-14 sm:w-14 text-purple-600 mb-1" />
+                <span className="text-2xl sm:text-4xl font-bold text-gray-900 leading-tight tracking-tight">TRINWO</span>
+                <span className="text-2xl sm:text-4xl font-bold text-gray-900 leading-tight tracking-tight">SOLUTIONS</span>
               </div>
             </div>
-            <h2 className="mt-2 text-center text-2xl font-medium text-gray-900">
+            <h2 className="mt-2 text-center text-lg sm:text-2xl md:text-3xl font-medium text-gray-900">
               Sign in to your account
             </h2>
-            <p className="mt-1 text-center text-sm text-gray-600">
+            <p className="mt-1 text-center text-xs sm:text-sm md:text-base text-gray-600">
               Manage your inventory with ease
             </p>
 
@@ -126,7 +126,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm sm:text-base md:text-lg font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
                 >
                   {isLoading ? (
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>

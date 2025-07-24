@@ -26,7 +26,7 @@ function App() {
                   <ProtectedRoute>
                     <div className="flex flex-col min-h-screen">
                       <Navbar />
-                      <main className="flex-1 p-6">
+                      <main className="flex-1 w-full">
                         <Routes>
                           <Route path="/" element={<Navigate to="/dashboard" />} />
                           <Route path="/dashboard" element={<Dashboard />} />

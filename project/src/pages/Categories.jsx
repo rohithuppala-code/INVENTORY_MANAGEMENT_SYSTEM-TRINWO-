@@ -97,19 +97,20 @@ const Categories = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-screen w-screen h-screen flex flex-col space-y-6 bg-gray-50">
+    <div className="relative flex flex-col min-h-screen w-screen bg-gray-50">
+      <div className="flex-1 flex flex-col space-y-6">
       {/* Header */}
       <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white relative overflow-hidden w-full">
         <div className="absolute inset-0 bg-logistics bg-cover bg-center opacity-20"></div>
-        <div className="relative z-10 flex items-center justify-between w-full">
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full text-center sm:text-left gap-3 sm:gap-0">
           <div>
-            <h1 className="text-4xl font-bold">Categories</h1>
-            <p className="text-green-100 mt-2">Organize your products by category</p>
+            <h1 className="text-2xl sm:text-4xl font-bold">Categories</h1>
+            <p className="text-green-100 mt-1 sm:mt-2 text-sm sm:text-base">Organize your products by category</p>
           </div>
           {user?.role === 'admin' && (
             <button
               onClick={openCreateModal}
-              className="bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center space-x-2"
+              className="w-full sm:w-auto mt-2 sm:mt-0 bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-green-50 transition-colors flex items-center justify-center space-x-2"
             >
               <Plus className="h-5 w-5" />
               <span>Add Category</span>
@@ -225,6 +226,7 @@ const Categories = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

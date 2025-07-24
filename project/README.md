@@ -3,6 +3,21 @@
 A modern inventory management system with a React frontend and Node.js/Express backend.
 
 ---
+For admin registering:
+1.First in backend folder run: node generateAdminHash.js file to set ur admin pass and hash it and copy it 
+2. Now in mongodb atlas in our database users section manually insert the below one
+{
+  "name":" Admin name",
+  "email": "Admin email",
+  "password": "copied  hashed password",
+  "role": "admin",
+  "isActive": true,
+  "createdAt": { "$date": "0000-00-00T00:00:00.000Z" },
+  "updatedAt": { "$date": "0000-00-00T00:00:00.000Z" }
+}
+3. after this normally signin with admin email and your normal password
+
+
 
 ## Folder Structure
 
@@ -85,6 +100,7 @@ This will install dependencies for both the frontend and backend.
 ### 3. Configure environment variables
 - Create a `.env` file in `backend/` with the following content:
   ```env
+  PORT = your port number
   MONGODB_URI=mongodb://localhost:27017/trinwo_inventory
   JWT_SECRET=your_jwt_secret
   JWT_EXPIRE=30d

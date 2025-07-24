@@ -128,19 +128,19 @@ const StockMovements = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-screen w-screen h-screen flex flex-col bg-gray-50">
-      <div className="flex-1 flex flex-col space-y-6 p-0 w-full h-full">
+    <div className="relative flex flex-col min-h-screen w-screen bg-gray-50">
+      <div className="flex-1 flex flex-col space-y-6 p-0">
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-xl p-6 text-white relative overflow-hidden w-full">
           <div className="absolute inset-0 bg-warehouse bg-cover bg-center opacity-10"></div>
-          <div className="relative z-10 flex items-center justify-between w-full">
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full text-center sm:text-left gap-3 sm:gap-0">
             <div>
-              <h1 className="text-4xl font-bold">Stock Movements</h1>
-              <p className="text-indigo-100 mt-2">Track all inventory changes and adjustments</p>
+              <h1 className="text-2xl sm:text-4xl font-bold">Stock Movements</h1>
+              <p className="text-indigo-100 mt-1 sm:mt-2 text-sm sm:text-base">Track all inventory changes and adjustments</p>
             </div>
             <button
               onClick={openCreateModal}
-              className="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center space-x-2"
+              className="w-full sm:w-auto mt-2 sm:mt-0 bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors flex items-center justify-center space-x-2"
             >
               <Plus className="h-5 w-5" />
               <span>Adjust Stock</span>
