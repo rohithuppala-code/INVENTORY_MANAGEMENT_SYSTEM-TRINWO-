@@ -7,7 +7,9 @@ import {
   TrendingDown, 
   Edit3,
   X,
-  Package
+  Package,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 const StockMovements = () => {
@@ -22,6 +24,7 @@ const StockMovements = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [warningMessage, setWarningMessage] = useState('');
+  const [displayCount, setDisplayCount] = useState(50); // Show more items by default
   const [formData, setFormData] = useState({
     productId: '',
     type: 'stock_in',
@@ -65,6 +68,9 @@ const StockMovements = () => {
     if (result.success) {
       setShowModal(false);
       resetForm();
+      // Refresh data after successful adjustment
+      fetchStockMovements();
+      fetchProducts();
     } else {
       alert(result.message);
     }
@@ -127,6 +133,22 @@ const StockMovements = () => {
     });
   };
 
+  // Filter and sort stock movements
+  const validStockMovements = stockMovements
+    .filter(movement => movement.product && movement.product.name)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by newest first
+
+  const displayedMovements = validStockMovements.slice(0, displayCount);
+  const hasMoreMovements = validStockMovements.length > displayCount;
+
+  const loadMoreMovements = () => {
+    setDisplayCount(prev => prev + 50);
+  };
+
+  const showAllMovements = () => {
+    setDisplayCount(validStockMovements.length);
+  };
+
   return (
     <div className="relative flex flex-col min-h-screen w-screen bg-gray-50">
       <div className="flex-1 flex flex-col space-y-6 p-0">
@@ -136,7 +158,9 @@ const StockMovements = () => {
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full text-center sm:text-left gap-3 sm:gap-0">
             <div>
               <h1 className="text-2xl sm:text-4xl font-bold">Stock Movements</h1>
-              <p className="text-indigo-100 mt-1 sm:mt-2 text-sm sm:text-base">Track all inventory changes and adjustments</p>
+              <p className="text-indigo-100 mt-1 sm:mt-2 text-sm sm:text-base">
+                Track all inventory changes and adjustments ({validStockMovements.length} total movements)
+              </p>
             </div>
             <button
               onClick={openCreateModal}
@@ -147,88 +171,125 @@ const StockMovements = () => {
             </button>
           </div>
         </div>
+
         {/* Stock Movements Table */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden w-full">
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
             </div>
+          ) : validStockMovements.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12">
+              <Package className="h-16 w-16 text-gray-300 mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No Stock Movements</h3>
+              <p className="text-gray-500 text-center max-w-md">
+                No stock movements have been recorded yet. Create your first stock adjustment to get started.
+              </p>
+            </div>
           ) : (
-            <div className="overflow-x-auto w-full max-h-[60vh] overflow-y-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Product
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Type
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Quantity
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Stock Change
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Reason
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Date
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Performed By
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {stockMovements.filter(movement => movement.product && movement.product.name).map((movement) => (
-                    <tr key={movement._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <Package className="h-5 w-5 text-gray-400 mr-3" />
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">
-                              {movement.product?.name}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                              SKU: {movement.product?.sku}
+            <>
+              <div className="overflow-x-auto w-full max-h-[60vh] overflow-y-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50 sticky top-0">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Product
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Type
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Quantity
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Stock Change
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Reason
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Date
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Performed By
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {displayedMovements.map((movement) => (
+                      <tr key={movement._id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <Package className="h-5 w-5 text-gray-400 mr-3" />
+                            <div>
+                              <div className="text-sm font-medium text-gray-900">
+                                {movement.product?.name}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                SKU: {movement.product?.sku}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          {getMovementIcon(movement.type)}
-                          <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getMovementColor(movement.type)}`}>
-                            {movement.type.replace('_', ' ').toUpperCase()}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {movement.type === 'stock_out' ? '-' : '+'}{movement.quantity}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {movement.previousQuantity} → {movement.newQuantity}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div className="max-w-xs truncate" title={movement.reason}>
-                          {movement.reason}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {formatDate(movement.createdAt)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {movement.performedBy?.name}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            {getMovementIcon(movement.type)}
+                            <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getMovementColor(movement.type)}`}>
+                              {movement.type.replace('_', ' ').toUpperCase()}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {movement.type === 'stock_out' ? '-' : '+'}{movement.quantity}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {movement.previousQuantity} → {movement.newQuantity}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <div className="max-w-xs truncate" title={movement.reason}>
+                            {movement.reason}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {formatDate(movement.createdAt)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {movement.performedBy?.name}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Load More / Show All Controls */}
+              {hasMoreMovements && (
+                <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-700">
+                      Showing {displayedMovements.length} of {validStockMovements.length} movements
+                    </p>
+                    <div className="flex space-x-3">
+                      <button
+                        onClick={loadMoreMovements}
+                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
+                      >
+                        Load More
+                      </button>
+                      <button
+                        onClick={showAllMovements}
+                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                      >
+                        Show All
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
+
         {/* Stock Adjustment Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -357,7 +418,7 @@ const StockMovements = () => {
                   >
                     Adjust Stock
                   </button>
-                </div>
+                  </div>
               </form>
             </div>
           </div>
