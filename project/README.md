@@ -138,5 +138,3 @@ npm run dev:all
 
 ---
 
-## License
-MIT
